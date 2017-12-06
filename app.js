@@ -18,8 +18,8 @@ connection.connect(function(err){
 var makeTable = function(){
   connection.query("SELECT * FROM products", function(err, res){
     for(var i=0; i<res.length; i++){
-      console.log(res[i].itemid+" || "+res[i].productname+" || "+
-        res[i].departmentname+" || "+res[i].price+" || "+res[i].stockquantity+"\n");
+      console.log(res[i].itemid + " || " + res[i].productname + " || " + 
+        res[i].departmentname + " || " + res[i].price + " || " + res[i].stockquantity + "\n");
     }
     promptCustomer(res);
   })
@@ -53,9 +53,13 @@ var promptCustomer = function(res) {
             }
           }
         }).then(function(answer) {
-          if((res[id].stockquantity-answer.quant)>0) {
-            connection.query("UPDATE products SET stockquantity= '"+(res[id].stockquantity-answer.quant)
-              +" 'Where productname=' "+product+" ' ", function(err,res2) {
+          var query = "UPDATE products SET stockquantity = " + (res[id].stockquantity - answer.quant)
+              + " WHERE productname = " + product;
+
+              console.log(query)
+          if((res[id].stockquantity - answer.quant) > 0) {
+            connection.query("UPDATE products SET stockquantity = " + (res[id].stockquantity - answer.quant)
+              + " WHERE productname = " + product , function(err,res2) {
                 console.log("Product Bought!");
                 makeTable();
               })
@@ -63,7 +67,7 @@ var promptCustomer = function(res) {
             console.log("Not a valid selection!");
             promptCustomer(res);
           }
-        })
+        });
       }
     }
     if(i==res.length && correct==false){
@@ -72,3 +76,8 @@ var promptCustomer = function(res) {
     }
   })
 }
+
+// if((res[id].stockquantity - answer.quant) > 0) {
+//             connection.query("UPDATE products SET stockquantity = '" + (res[id].stockquantity - answer.quant)
+//               + " 'Where productname = ' " + product + " ' ", function(err,res2) {
+//                 console.log("Product Bought!");

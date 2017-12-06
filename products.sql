@@ -1,4 +1,4 @@
-INSERT INTO products(ProductName,DepartmentName,Price,StockQuantity)
+INSERT INTO products(productname,departmentname,price,stockquantity)
 
 VALUES ("A", "book",50,150),
 ("B", "vid", 10,60),
